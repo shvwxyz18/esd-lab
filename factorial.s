@@ -12,6 +12,6 @@ loop
     LDR R2, =Result;
     STR R0, [R2];
 STOP B STOP
-AREA Res, DATA , READWRITE
+    AREA Res, DATA , READWRITE
 Result DCD 0x00;
-END
+    END
