@@ -1,0 +1,42 @@
+		AREA OnesAndZeros, CODE, READONLY
+		EXPORT __main
+			
+__main
+		LDR R0,=SRC
+		EOR R5,R5,R5
+		EOR R6,R6,R6
+		MOV R2,#2
+	
+UP
+		MOV R1,#32
+		LDR R3,[R0]
+		
+TOP
+		TST R3, #1
+		BEQ INC_ZERO
+		ADD R6, #1
+		B DOWN
+		
+INC_ZERO
+		ADD R5, #1
+		
+DOWN
+		LSR R3,#1
+		SUB R1,#1
+		CMP R1,#0
+		BNE TOP
+		ADD R0,#4
+		SUB R2,#1
+		CMP R2,#0
+		BNE UP
+		
+		LDR R7, =ONES
+		STR R6, [R7]
+		LDR R8, =ZEROS
+		STR R5, [R8]
+		
+SRC DCD 0xAA55AA55, 0x11111111
+	AREA COUNT, DATA, READWRITE
+ONES DCD 0x0;
+ZEROS DCD 0X0;
+		END
