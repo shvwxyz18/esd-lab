@@ -10,7 +10,7 @@ __main
 		LDR R0, NUM1;
 		LDR R1, NUM2;
 		LDR R2, NUM3;
-		LDR R4, NUM4;
+		LDR R3, NUM4;
 		ADD R4, R0, R1;
 		ADD R5, R2, R3;
 		LDR R6, =LOWER;
