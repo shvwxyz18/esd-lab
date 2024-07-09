@@ -1,17 +1,22 @@
-    AREA factorial, CODE, READONLY
-    ENTRY
-    EXPORT __main
+	AREA FACT, CODE, READONLY
+	ENTRY
+	EXPORT __main
+		
 __main
-    MOV R0, #6
-    MOV R1, #1
+	MOV R0, #5
+	MOV R1, #1
 
-loop
-    MUL R1, R0
-    SUBS R0, #1
-    BNE loop
-    LDR R2, =Result;
-    STR R1, [R2];
+LOOP
+	MUL R1, R1, R0
+	SUBS R0, #1
+	CMP R0, #1
+	BNE LOOP
+	LDR R2, =RESULT
+	STR R1, [R2]
+	
 STOP B STOP
-    AREA Res, DATA , READWRITE
-Result DCD 0x00;
-    END
+	AREA RES, DATA, READWRITE
+RESULT DCD 0x00
+	END
+
+;EXPECTED RESULT R1 - OXOOOOOO78
