@@ -1,27 +1,28 @@
-AREA sum, CODE, READONLY
-		ENTRY
-		EXPORT __main
-__main
-		LDR R0,=array
-		MOV R1,#4
-		LDR R2,[R0],#4
-loop
-		LDR R3,[R0],#4
-		CMP R2,R3
-		BLS large
-		MOV R2,R3
-large
-		SUBS R1,#1
-		CMP R1,#1
-		BNE loop
-		LDR R4,=result
-		STR R2, [R4]
-STOP B STOP
-array DCD 0x03;
-	  DCD 0x041;
-	  DCD 0x05;
-	  DCD 0x01;
+	AREA LARGEST, CODE, READONLY
+	ENTRY
+	EXPORT __main
 
-		area res, data, readwrite
-result DCD 0x00;
-		END
+__main
+	LDR R0, =ARRAY
+	MOV R1, #4
+	LDR R2, [R0], #4
+	
+LOOP
+	LDR R3, [R0], #4
+	CMP R2, R3
+	BLT LARGE
+	MOV R2, R3
+	
+LARGE
+	SUBS R1, #1
+	CMP R1, #1
+	BNE LOOP
+	LDR R6, =RESULT
+	STR R2, [R6]
+	
+STOP B STOP
+ARRAY DCD 0X11111111, 0X22222222, 0X33333333, 0X44444444
+	AREA RES, DATA, READWRITE
+RESULT DCD 0X00
+
+ ;EXPECTED RESULT R2 - 0X11111111
